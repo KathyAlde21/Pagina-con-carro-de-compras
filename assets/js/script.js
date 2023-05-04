@@ -100,6 +100,7 @@ function renderTarjetas(){
     var contenidoPrincipal = document.querySelector('#contenidoPrincipal'); //asociado al main
     contenidoPrincipal.setAttribute('class', 'container');
     var contenedorPrincipal = document.createElement('div');
+    contenedorPrincipal.setAttribute('id', 'contenedorPrincipal');
     contenedorPrincipal.setAttribute('class', 'row');
     
     /* creando todo para usar de forma dinamica */
@@ -166,46 +167,24 @@ var carritoCompra = document.querySelector('#carritoCompra');
 carritoCompra.addEventListener('click', function () {
     var contenedorPrincipal = document.querySelector('#contenedorPrincipal');
     contenedorPrincipal.setAttribute('class', 'd-none');
-
-    
-    var contenedorPrincipalDos = document.createElement('div');
-    contenedorPrincipalDos.setAttribute('id', 'contenedorPrincipalDos');
-    contenedorPrincipalDos.setAttribute('class', 'row');
     arregloCarritoCompra.forEach(function (producto) {
+        var contenedorPrincipalDos = document.createElement('div');
+        var cuerpoTabla = document.querySelector('#cuerpoTabla');
         var fila = document.createElement('tr');
         var columnaUno = document.createElement('td');
         var columnaDos = document.createElement('td');
         var columnaTres = document.createElement('td');
         var columnaCuatro = document.createElement('td');
+        var columnaCinco = document.createElement('td');
         columnaUno.innerHTML = producto.nombre;
         columnaDos.innerHTML = producto.categoria;
         columnaTres.innerHTML = producto.genero;
         columnaCuatro.innerHTML = producto.precio;
-        fila.append(columnaUno, columnaDos, columnaTres, columnaCuatro);
-
+        columnaCinco.innerHTML = producto.unidades;
+        fila.append(columnaUno, columnaDos, columnaTres, columnaCuatro, columnaCinco);
+        cuerpoTabla.append(fila);
+        contenedorPrincipalDos.setAttribute('class', 'd-block');
       });
   });
 
-
-
-
-
-
-
-
 renderTarjetas()
-
-/*
-<div class="card" style="width: 18rem;">
-<img src="..." class="card-img-top" alt="...">
-<div class="card-body">
-  <h5 class="card-title">Nombre del producto</h5>
-  <p class="card-text">Categoria</p>
-</div>
-<ul class="list-group list-group-flush">
-  <li class="list-group-item">Genero</li>
-  <li class="list-group-item">Precio</li>
-  <li class="list-group-item">Stock</li>
-</ul>
-</div>
-*/
