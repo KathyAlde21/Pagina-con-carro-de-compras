@@ -1,5 +1,4 @@
 //console.log('probando');
-
 var datos = [
     {
         nombre: "bicicleta de Ruta",
@@ -118,6 +117,7 @@ function renderTarjetas(){
         var listaItemUno = document.createElement('li');
         var listaItemDos = document.createElement('li');
         var listaItemTres = document.createElement('li');
+        var btnAgregar = document.createElement('button');
         /* aplicando estilos*/
         contenedorTarjeta.setAttribute('class', 'card col-3 m-3');
         contenedorTarjeta.setAttribute('style', 'width: 18rem;');
@@ -139,36 +139,34 @@ function renderTarjetas(){
         /* incorporando boton */
         btnAgregar.setAttribute('class', 'btn btn-primary mb-3');
         btnAgregar.innerHTML = 'Agregar al carrito';
-        btnAgregar.addEvenListener('click', function () {
+        btnAgregar.addEventListener('click', function () {
             if (producto.stock > 0) {
-                contador = contador +1;
-                producto.cantidadUndidadesSeleccionadas = contador;
+                contador = contador + 1;
+                producto.cantidadUnidadesSeleccionadas = contador;
                 var estado = arregloCarritoCompra.indexOf(producto);
                 if(estado == -1){
                     arregloCarritoCompra.push(producto);
                 }
-                producto.stock = producto.stock -1;
+                producto.stock = producto.stock - 1;
                 listaItemTres.innerHTML = producto.stock;
             } else {
                 alert(`No queda stock del producto ${producto.nombre}`);
             }
         });
-          contenedorCuerpoTarjeta.append(tituloTarjeta, parrafoTarjeta);
-          listaTarjeta.append(listaItemUno, listaItemDos, listaItemTres);
-          contenedorTarjeta.append(imagen, contenedorCuerpoTarjeta, listaTarjeta, btnAgregar);
-          contenidoPrincipal.append(contenedorTarjeta);
+        contenedorCuerpoTarjeta.append(tituloTarjeta, parrafoTarjeta);
+        listaTarjeta.append(listaItemUno, listaItemDos, listaItemTres);
+        contenedorTarjeta.append(imagen, contenedorCuerpoTarjeta, listaTarjeta, btnAgregar);
+        contenedorPrincipal.append(contenedorTarjeta);
     });
     contenidoPrincipal.append(contenedorPrincipal);
-
 }
-
 
 var carritoCompra = document.querySelector('#carritoCompra');
 carritoCompra.addEventListener('click', function () {
     var contenedorPrincipal = document.querySelector('#contenedorPrincipal');
     contenedorPrincipal.setAttribute('class', 'd-none');
     arregloCarritoCompra.forEach(function (producto) {
-        var contenedorPrincipalDos = document.createElement('div');
+        var contenedorPrincipalDos = document.querySelector('#contenedorPrincipalDos');
         var cuerpoTabla = document.querySelector('#cuerpoTabla');
         var fila = document.createElement('tr');
         var columnaUno = document.createElement('td');
@@ -180,11 +178,11 @@ carritoCompra.addEventListener('click', function () {
         columnaDos.innerHTML = producto.categoria;
         columnaTres.innerHTML = producto.genero;
         columnaCuatro.innerHTML = producto.precio;
-        columnaCinco.innerHTML = producto.unidades;
+        columnaCinco.innerHTML = producto.cantidadUnidadesSeleccionadas;
         fila.append(columnaUno, columnaDos, columnaTres, columnaCuatro, columnaCinco);
         cuerpoTabla.append(fila);
         contenedorPrincipalDos.setAttribute('class', 'd-block');
-      });
-  });
+    });
+});
 
-renderTarjetas()
+renderTarjetas();
